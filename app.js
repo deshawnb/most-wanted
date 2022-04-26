@@ -79,7 +79,7 @@ function mainMenu(person, people) {
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
             let personDescendants = findPersonDescendants(person[0], people);
-            alert(personDescendants);
+            alert(displayPeople(personDescendants));
             break;
         case "restart":
             // Restart app() from the very beginning
@@ -205,17 +205,20 @@ function findPersonDescendants(person, people) {
     return descendants
 }
 
+
 function findPersonParents(person, people){
     let parentOne = person.parents[0];
     let parentTwo = person.parents[1];
     
     let parents = people.filter(function(el){
+
         if(el.parents.includes(parentOne) === true || el.parents.includes(parentTwo) === true){
             return true;
         }
         else{
             return false
         }})
+
     return parents
 }
 
@@ -231,4 +234,5 @@ function findPersonSpouse(person, people){
             return false
         }})
     return spouse
+
 }
