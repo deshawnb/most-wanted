@@ -192,3 +192,9 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+function findPersonDescendants(person, people) {
+    let personId = person.id;
+
+    let descendantsList = displayPeople(people);
+    return descendantsList
+}
