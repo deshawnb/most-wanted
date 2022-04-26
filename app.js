@@ -221,17 +221,33 @@ function findPersonDescendants(person, people) {
 }
 
 
-
-function findPersonFamily(person, people){
+function findPersonParents(person, people){
     let parentOne = person.parents[0];
     let parentTwo = person.parents[1];
     
-    let family = people.filter(function(el){
+    let parents = people.filter(function(el){
+
         if(el.parents.includes(parentOne) === true || el.parents.includes(parentTwo) === true){
             return true;
         }
         else{
             return false
         }})
-    return family
+
+    return parents
+}
+
+
+function findPersonSpouse(person, people){
+    let spouseOne = person.currentSpouse[0];
+    
+    let spouse = people.filter(function(el){
+        if(el.currentSpouse.includes(spouseOne) === true){
+            return true;
+        }
+        else{
+            return false
+        }})
+    return spouse
+
 }
