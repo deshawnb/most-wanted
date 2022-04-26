@@ -73,13 +73,13 @@ function mainMenu(person, people) {
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
-            alert(displayPeople(personFamily));
+            displayPeople(personFamily);
             break;
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
             let personDescendants = findPersonDescendants(person[0], people);
-            alert(displayPeople(personDescendants));
+            displayPeople(personDescendants);
             break;
         case "restart":
             // Restart app() from the very beginning
@@ -194,16 +194,33 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonDescendants(person, people) {
+    let descendants = [];
+    let newDescendants = [];
     let personId = person.id;
-    let descendants = people.filter(function(el){
+    let i = 0
+    descendants = people.filter(function(el){
         if(el.parents.includes(personId) === true){
             return true;
         }
         else{
             return false;
         }})
+    while(i != descendants.length){
+        let currentDescendant = descendants[i]
+        newDescendants = people.filter(function(el){
+            if(el.parents.includes(currentDescendant.id)){
+                return true
+            }
+            else{
+                return false
+            }})
+        descendants = descendants.concat(newDescendants)
+        i++
+    }
     return descendants
 }
+
+
 
 function findPersonFamily(person, people){
     let parentOne = person.parents[0];
