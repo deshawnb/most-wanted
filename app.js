@@ -331,3 +331,82 @@ function findPersonFamily(person, people){
     return family
 
 }
+
+function searchByTraits(people){
+    let userInput = prompt('what trait do you want to search?\n traits are gender, dob, height, weight, eye color, and occupation.')
+    let foundPeople = []
+    switch (userInput) {
+        case "gender":
+            let gender = prompt('what is their gender')
+            foundPeople = people.filter(function (person) {
+                if (person.gender === gender) {
+                    return true;
+                }
+            });
+            displayPeople(foundPeople);
+            return continueSearch(foundPeople);
+
+        case "dob":
+            let dob = prompt('what is their dob')
+            foundPeople = people.filter(function (person) {
+                if (person.dob === dob) {
+                    return true;
+                }
+            });
+            displayPeople(foundPeople);
+            return continueSearch(foundPeople);
+
+        case "height":
+            let height = prompt('what is their height')
+            foundPeople = people.filter(function (person) {
+                if (person.height == height) {
+                    return true;
+                }
+            });
+            displayPeople(foundPeople);
+            return continueSearch(foundPeople);
+
+        case "weight":
+            let weight = prompt('what is their weight')
+            foundPeople = people.filter(function (person) {
+                if (person.weight == weight) {
+                    return true;
+                }
+            });
+            displayPeople(foundPeople);
+            return continueSearch(foundPeople);
+
+        case "eye color":
+            let eyeColor = prompt('what is their eye color')
+            foundPeople = people.filter(function (person) {
+                if (person.eyeColor === eyeColor) {
+                    return true;
+                }
+            });
+            displayPeople(foundPeople);
+            return continueSearch(foundPeople);
+
+        case "occupation":
+            let occupation = prompt('what is their occupation')
+            foundPeople = people.filter(function (person) {
+                if (person.occupation === occupation) {
+                    return true;
+                }
+            });
+            displayPeople(foundPeople);
+            return continueSearch(foundPeople);
+
+        default:
+            return searchByTraits(people);
+    }
+}
+
+
+
+
+// function continueSearch(people)
+//     let response = prompt('this is the list of people found\n Would you like to narrow it down? \n yes to continue search, no to select first option.')
+//     if(response == 'no'){
+
+//     }
+
