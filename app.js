@@ -311,3 +311,23 @@ function findPersonSiblings(person, people) {
         }
     
 }
+
+function findPersonFamily(person, people){
+    let family = []
+    let parents = findPersonParents(person, people);
+    if(parents){
+        parents.map(parent => {
+            family.push(parent)
+        })
+    }
+
+    let siblings = findPersonSiblings(person, people);
+    if(siblings){
+        siblings.map(sibling => {
+            family.push(sibling)
+        })
+    }
+    family.push( findPersonSpouse(person, people));
+    return family
+
+}
