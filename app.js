@@ -342,9 +342,10 @@ function searchByTraits(people){
 
         case "multiple":
             peopleFound = multipleSearch(people)
-            return peopleFound
+            return peopleFound;
         default:
             searchByTraits(people)
+    return peopleFound;
     }
 }
 
@@ -375,6 +376,9 @@ function singleSearch(people){
         case "occupation": 
             result = occupation(people)
             return result
+
+        default:
+            return singleSearch(people)
 }}
 
 
@@ -382,37 +386,49 @@ function multipleSearch(people){
     let filteredPeople = people
     let userInput
     let i = 0
-    while(userInput != 'no' && i < 6){
+    while(userInput !== 'yes' && i < 6 && filteredPeople.length >= 2){
         let trait = prompt('select a trait')
 
         switch (trait) {
             case "gender": 
                 filteredPeople = gender(filteredPeople)
+                i++
                 break;
     
             case "dob":
                 filteredPeople = dob(filteredPeople)
+                i++
                 break;
             
             case "height":
                 filteredPeople = height(filteredPeople)
+                i++
                 break;
     
             case "weight":
                 filteredPeople = weight(filteredPeople)
+                i++
                 break;
     
             case "eye color": 
                 filteredPeople = eyeColor(filteredPeople)
+                i++
                 break;
     
             case "occupation": 
                 filteredPeople = occupation(filteredPeople)
+                i++
                 break;
-        }
 
-        userInput = prompt('would you like to continue')
-        i++
+            default:
+                break;
+        }  
+        if (filteredPeople.lenth === 0){
+            return filteredPeople;
+        }
+        else if (filteredPeople.length >= 2){
+            userInput = prompt('is the first person who you are searching for?')
+        }
     }
     return filteredPeople
 }
@@ -424,6 +440,10 @@ function gender(people)
             return true;
         }
     });
+    if (foundPeople.length === 0){
+        alert('no result found.')
+        return foundPeople;
+    }
     displayPeople(foundPeople);
     return foundPeople;}
 
@@ -434,6 +454,10 @@ function dob(people)
             return true;
         }
     });
+    if (foundPeople.length === 0){
+        alert('no result found.')
+        return foundPeople;
+    }
     displayPeople(foundPeople);
     return foundPeople;}
 
@@ -444,6 +468,10 @@ function height(people)
             return true;
         }
     });
+    if (foundPeople.length === 0){
+        alert('no result found.')
+        return foundPeople;
+    }
     displayPeople(foundPeople);
     return foundPeople;}
 
@@ -454,6 +482,10 @@ function weight(people){
             return true;
         }
     });
+    if (foundPeople.length === 0){
+        alert('no result found.')
+        return foundPeople;
+    }
     displayPeople(foundPeople);
     return foundPeople;}
 
@@ -464,6 +496,10 @@ function eyeColor(people){
             return true;
         }
     });
+    if (foundPeople.length === 0){
+        alert('no result found.')
+        return foundPeople;
+    }
     displayPeople(foundPeople);
     return foundPeople;}
 
@@ -474,6 +510,10 @@ function occupation(people){
             return true;
         }
     });
+    if (foundPeople.length === 0){
+        alert('no result found.')
+        return foundPeople;
+    }
     displayPeople(foundPeople);
     return foundPeople;}
 
