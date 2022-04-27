@@ -279,3 +279,35 @@ function findPersonSpouse(person, people){
     }
     return myspouse
 }
+
+function findPersonSiblings(person, people) {
+    if(person.parents.length !== 0){
+        let parentOne = person.parents[0];
+        let parentTwo = person.parents[1];
+        let arrayOne = []
+        let personId = person.id
+
+        people.map(function(person){
+            if(parentOne !== undefined){
+                if(person.id === parentOne){
+                    arrayOne.push( parentOne);
+                }
+            }
+            if(parentTwo !== undefined){
+                if(person.id === parentTwo){
+                    arrayOne.push( parentTwo);
+                }
+            }
+        })
+        let siblings = people.filter(function(person){
+            if(person.parents.includes(parentOne) === true && person.id !== personId || person.parents.includes(parentTwo) === true && person.id !== personId){
+                return true;
+            }
+            else{
+                return false;
+            }})
+    
+            return siblings
+        }
+    
+}
