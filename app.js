@@ -222,19 +222,38 @@ function findPersonDescendants(person, people) {
 
 
 function findPersonParents(person, people){
-    let parentOne = person.parents[0];
-    let parentTwo = person.parents[1];
-    
-    let parents = people.filter(function(el){
+    if(person.parents.length !== 0){
+        let parentOne = person.parents[0];
+        let parentTwo = person.parents[1];
+        let arrayOne = []
 
-        if(el.parents.includes(parentOne) === true || el.parents.includes(parentTwo) === true){
-            return true;
-        }
-        else{
-            return false
-        }})
+        people.map(function(person){
+            if(parentOne !== undefined){
+                if(person.id === parentOne){
+                    arrayOne.push( parentOne);
+                }
+            }
+            if(parentTwo !== undefined){
+                if(person.id === parentTwo){
+                    arrayOne.push( parentTwo);
+                }
+            }
+        })
+        let parents = arrayOne.map(parent => {
+            return people.filter(function(person){
+                if(person.id === parent){
+                    return true;
+                }   
+            })
+        })
 
-    return parents
+        return parents.map(parent => {
+            return {
+                firstName: parent[0].firstName,
+                lastName: parent[0].lastName
+            }
+        })
+    }
 }
 
 
