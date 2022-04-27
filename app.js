@@ -333,14 +333,16 @@ function findPersonFamily(person, people){
 }
 
 function searchByTraits(people){
+    let peopleFound
     let userInput = prompt('would you like to search one trait or multiple traits\n enter one or multiple')
     switch (userInput) {
         case "one":
-            people = singleSearch(people)
-            return people;
+            peopleFound = singleSearch(people)
+            return peopleFound;
 
         case "multiple":
-            break;
+            peopleFound = multipleSearch(people)
+            return peopleFound
         default:
             searchByTraits(people)
     }
@@ -377,7 +379,42 @@ function singleSearch(people){
 
 
 function multipleSearch(people){
+    let filteredPeople = people
+    let userInput
+    let i = 0
+    while(userInput != 'no' && i < 6){
+        let trait = prompt('select a trait')
+
+        switch (trait) {
+            case "gender": 
+                filteredPeople = gender(filteredPeople)
+                break;
     
+            case "dob":
+                filteredPeople = dob(filteredPeople)
+                break;
+            
+            case "height":
+                filteredPeople = height(filteredPeople)
+                break;
+    
+            case "weight":
+                filteredPeople = weight(filteredPeople)
+                break;
+    
+            case "eye color": 
+                filteredPeople = eyeColor(filteredPeople)
+                break;
+    
+            case "occupation": 
+                filteredPeople = occupation(filteredPeople)
+                break;
+        }
+
+        userInput = prompt('would you like to continue')
+        i++
+    }
+    return filteredPeople
 }
 
 function gender(people)
