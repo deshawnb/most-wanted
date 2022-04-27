@@ -348,81 +348,100 @@ function searchByTraits(people){
 
 function singleSearch(people){
     let userInput = prompt('what trait do you want to search?\n traits are gender, dob, height, weight, eye color, and occupation.')
-    let foundPeople = []
+    let result
     switch (userInput) {
-        case "gender":
-            let gender = prompt('what is their gender')
-            foundPeople = people.filter(function (person) {
-                if (person.gender === gender) {
-                    return true;
-                }
-            });
-            displayPeople(foundPeople);
-            return foundPeople;
+        case "gender": 
+            result = gender(people)
+            return result
 
         case "dob":
-            let dob = prompt('what is their dob')
-            foundPeople = people.filter(function (person) {
-                if (person.dob === dob) {
-                    return true;
-                }
-            });
-            displayPeople(foundPeople);
-            return foundPeople;
-
+            result = dob(people)
+            return result
+        
         case "height":
-            let height = prompt('what is their height')
-            foundPeople = people.filter(function (person) {
-                if (person.height == height) {
-                    return true;
-                }
-            });
-            displayPeople(foundPeople);
-            return foundPeople;
+            result = height(people)
+            return result
 
         case "weight":
-            let weight = prompt('what is their weight')
-            foundPeople = people.filter(function (person) {
-                if (person.weight == weight) {
-                    return true;
-                }
-            });
-            displayPeople(foundPeople);
-            return foundPeople;
+            result = weight(people)
+            return result
 
-        case "eye color":
-            let eyeColor = prompt('what is their eye color')
-            foundPeople = people.filter(function (person) {
-                if (person.eyeColor === eyeColor) {
-                    return true;
-                }
-            });
-            displayPeople(foundPeople);
-            return foundPeople;
+        case "eye color": 
+            result = eyeColor(people)
+            return result
 
-        case "occupation":
-            let occupation = prompt('what is their occupation')
-            foundPeople = people.filter(function (person) {
-                if (person.occupation === occupation) {
-                    return true;
-                }
-            });
-            displayPeople(foundPeople);
-            return foundPeople;
-
-        default:
-            return singleSearch(people);
-    }
-}
+        case "occupation": 
+            result = occupation(people)
+            return result
+}}
 
 
 function multipleSearch(people){
-    let response = prompt('this is the list of people found\n Would you like to narrow it down? \n yes to continue search, no to select first option.')
-    if(response == 'no'){
-        return people
-    }
-    else if(response == 'yes'){
-        searchByTraits(people)
-    }
     
 }
+
+function gender(people)
+    {let gender = prompt('what is their gender')
+    let foundPeople = people.filter(function (person) {
+        if (person.gender === gender) {
+            return true;
+        }
+    });
+    displayPeople(foundPeople);
+    return foundPeople;}
+
+function dob(people)
+    {let dob = prompt('what is their dob')
+    let foundPeople = people.filter(function (person) {
+        if (person.dob === dob) {
+            return true;
+        }
+    });
+    displayPeople(foundPeople);
+    return foundPeople;}
+
+function height(people)
+    {let height = prompt('what is their height')
+    let foundPeople = people.filter(function (person) {
+        if (person.height == height) {
+            return true;
+        }
+    });
+    displayPeople(foundPeople);
+    return foundPeople;}
+
+function weight(people){
+    let weight = prompt('what is their weight')
+    let foundPeople = people.filter(function (person) {
+        if (person.weight == weight) {
+            return true;
+        }
+    });
+    displayPeople(foundPeople);
+    return foundPeople;}
+
+function eyeColor(people){
+    let eyeColor = prompt('what is their eye color')
+    let foundPeople = people.filter(function (person) {
+        if (person.eyeColor === eyeColor) {
+            return true;
+        }
+    });
+    displayPeople(foundPeople);
+    return foundPeople;}
+
+function occupation(people){
+    let occupation = prompt('what is their occupation')
+    let foundPeople = people.filter(function (person) {
+        if (person.occupation === occupation) {
+            return true;
+        }
+    });
+    displayPeople(foundPeople);
+    return foundPeople;}
+
+
+
+
+
+
