@@ -333,6 +333,20 @@ function findPersonFamily(person, people){
 }
 
 function searchByTraits(people){
+    let userInput = prompt('would you like to search one trait or multiple traits\n enter one or multiple')
+    switch (userInput) {
+        case "one":
+            people = singleSearch(people)
+            return people;
+
+        case "multiple":
+            break;
+        default:
+            searchByTraits(people)
+    }
+}
+
+function singleSearch(people){
     let userInput = prompt('what trait do you want to search?\n traits are gender, dob, height, weight, eye color, and occupation.')
     let foundPeople = []
     switch (userInput) {
@@ -344,7 +358,7 @@ function searchByTraits(people){
                 }
             });
             displayPeople(foundPeople);
-            return continueSearch(foundPeople);
+            return foundPeople;
 
         case "dob":
             let dob = prompt('what is their dob')
@@ -354,7 +368,7 @@ function searchByTraits(people){
                 }
             });
             displayPeople(foundPeople);
-            return continueSearch(foundPeople);
+            return foundPeople;
 
         case "height":
             let height = prompt('what is their height')
@@ -364,7 +378,7 @@ function searchByTraits(people){
                 }
             });
             displayPeople(foundPeople);
-            return continueSearch(foundPeople);
+            return foundPeople;
 
         case "weight":
             let weight = prompt('what is their weight')
@@ -374,7 +388,7 @@ function searchByTraits(people){
                 }
             });
             displayPeople(foundPeople);
-            return continueSearch(foundPeople);
+            return foundPeople;
 
         case "eye color":
             let eyeColor = prompt('what is their eye color')
@@ -384,7 +398,7 @@ function searchByTraits(people){
                 }
             });
             displayPeople(foundPeople);
-            return continueSearch(foundPeople);
+            return foundPeople;
 
         case "occupation":
             let occupation = prompt('what is their occupation')
@@ -394,19 +408,21 @@ function searchByTraits(people){
                 }
             });
             displayPeople(foundPeople);
-            return continueSearch(foundPeople);
+            return foundPeople;
 
         default:
-            return searchByTraits(people);
+            return singleSearch(people);
     }
 }
 
 
-
-
-// function continueSearch(people)
-//     let response = prompt('this is the list of people found\n Would you like to narrow it down? \n yes to continue search, no to select first option.')
-//     if(response == 'no'){
-
-//     }
-
+function multipleSearch(people){
+    let response = prompt('this is the list of people found\n Would you like to narrow it down? \n yes to continue search, no to select first option.')
+    if(response == 'no'){
+        return people
+    }
+    else if(response == 'yes'){
+        searchByTraits(people)
+    }
+    
+}
