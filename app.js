@@ -258,15 +258,24 @@ function findPersonParents(person, people){
 
 
 function findPersonSpouse(person, people){
-    let spouseOne = person.currentSpouse[0];
+    let currentSpouse = person.currentSpouse;
     
-    let spouse = people.filter(function(el){
-        if(el.currentSpouse.includes(spouseOne) === true){
+    let spouse = people.filter(function(person){
+        if(person.currentSpouse === currentSpouse){
             return true;
         }
-        else{
-            return false
-        }})
-    return spouse
-
+        
+    })
+    let personId = spouse[0].currentSpouse
+    spouse = people.filter(function(person){
+        if(person.id === personId){
+            return true;
+        }
+            
+    })
+    const myspouse = {
+        firstName: spouse[0].firstName,
+        lastName: spouse[0].lastName
+    }
+    return myspouse
 }
