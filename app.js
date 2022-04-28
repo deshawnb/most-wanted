@@ -193,6 +193,7 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
+//  finds children and grand children and so on
 function findPersonDescendants(person, people) {
     let descendants = [];
     let newDescendants = [];
@@ -220,7 +221,7 @@ function findPersonDescendants(person, people) {
     return descendants
 }
 
-
+// finds parents
 function findPersonParents(person, people){
     if(person.parents.length !== 0){
         let parentOne = person.parents[0];
@@ -256,7 +257,7 @@ function findPersonParents(person, people){
     }
 }
 
-
+// finds spouse
 function findPersonSpouse(person, people){
     let currentSpouse = person.currentSpouse;
     
@@ -280,6 +281,7 @@ function findPersonSpouse(person, people){
     return myspouse
 }
 
+// find siblings
 function findPersonSiblings(person, people) {
     if(person.parents.length !== 0){
         let parentOne = person.parents[0];
@@ -312,6 +314,7 @@ function findPersonSiblings(person, people) {
     
 }
 
+// finds immediate family of item by combining find parents, spouse, and siblings
 function findPersonFamily(person, people){
     let family = []
     let parents = findPersonParents(person, people);
@@ -332,6 +335,7 @@ function findPersonFamily(person, people){
 
 }
 
+// allows the user to choose to only use one filter or multiple
 function searchByTraits(people){
     let peopleFound
     let userInput = prompt('would you like to search one trait or multiple traits\n enter one or multiple')
@@ -349,176 +353,280 @@ function searchByTraits(people){
     }
 }
 
+// can use one filtering function then allows the user to select from the end result
 function singleSearch(people){
     let userInput = prompt('what trait do you want to search?\n traits are gender, dob, height, weight, eye color, and occupation.')
     let result
     switch (userInput) {
         case "gender": 
             result = gender(people)
-            return result
+            break;
 
         case "dob":
             result = dob(people)
-            return result
+            break;
         
         case "height":
             result = height(people)
-            return result
+            break;
 
         case "weight":
             result = weight(people)
-            return result
+            break;
 
         case "eye color": 
             result = eyeColor(people)
-            return result
+            break;
 
         case "occupation": 
             result = occupation(people)
-            return result
+            break;
 
         default:
             return singleSearch(people)
-}}
+    }
 
+    displayPeople(result);
+    if (result.length <= 1){
+        return result;
+    }
 
+    let profile = []
+
+    while(profile.length == 0){
+        let selectedPerson = prompt(`please select a person from the list\n enter 1 for the first person 2 for the second and so on.`);
+        let num = parseInt(selectedPerson) - 1;
+
+        if (num >= 0 && num < result.length){
+            profile.push(result[num]);
+            return profile
+        }
+        else{
+            alert('Invalid input. please try again.')
+            displayPeople(result);
+        }
+    }
+}
+
+// can use select filtering functions multiple times
 function multipleSearch(people){
     let filteredPeople = people
-    let userInput
-    let i = 0
-    while(userInput !== 'yes' && i < 6 && filteredPeople.length >= 2){
-        let trait = prompt('select a trait')
+    let userInput = ''
+    while(userInput !== 'no' && filteredPeople.length >= 2){
+        let trait = prompt('what trait do you want to search?\n traits are gender, dob, height, weight, eye color, and occupation.')
 
         switch (trait) {
             case "gender": 
-                filteredPeople = gender(filteredPeople)
-                i++
+                filteredPeople = gender(filteredPeople);
+                
                 break;
     
             case "dob":
-                filteredPeople = dob(filteredPeople)
-                i++
+                filteredPeople = dob(filteredPeople);
+                
                 break;
             
             case "height":
-                filteredPeople = height(filteredPeople)
-                i++
+                filteredPeople = height(filteredPeople);
+                
                 break;
     
             case "weight":
-                filteredPeople = weight(filteredPeople)
-                i++
+                filteredPeople = weight(filteredPeople);
+                
                 break;
     
             case "eye color": 
-                filteredPeople = eyeColor(filteredPeople)
-                i++
+                filteredPeople = eyeColor(filteredPeople);
+                
                 break;
     
             case "occupation": 
-                filteredPeople = occupation(filteredPeople)
-                i++
+                filteredPeople = occupation(filteredPeople);
+                
                 break;
 
             default:
                 break;
         }  
-        if (filteredPeople.lenth === 0){
+        if (filteredPeople.lenth == 1){
             return filteredPeople;
         }
         else if (filteredPeople.length >= 2){
-            userInput = prompt('is the first person who you are searching for?')
+            alert('here is what was found');
+            displayPeople(filteredPeople);
+            userInput = prompt('would you like to continue filtering?\n enter no to stop or press enter to continue.');
+        }
+        else if (filteredPeople,length == 0){
+            alert('restarting app');
+            return filteredPeople;
         }
     }
-    return filteredPeople
+
+    let profile = []
+
+    while(profile.length == 0 && filteredPeople.length != 0){
+        let selectedPerson = prompt(`please select a person from the list\n enter 1 for the first person 2 for the second and so on.`);
+        let num = parseInt(selectedPerson) - 1;
+
+        if (num >= 0 && num < filteredPeople.length){
+            profile.push(filteredPeople[num]);
+            return profile
+        }
+        else{
+            alert('Invalid input. please try again.')
+            displayPeople(filteredPeople);
+        }
+    }
 }
 
-function gender(people)
-    {let gender = prompt('what is their gender')
-    let foundPeople = people.filter(function (person) {
-        if (person.gender === gender) {
-            return true;
+// filters array by gender
+function gender(people){
+    let foundPeople = [];
+    while (foundPeople.length === 0){
+        let gender = prompt('what is their gender')
+        let foundPeople = people.filter(function (person) {
+            if (person.gender === gender) {
+                return true;
+            }
+        });
+        if (foundPeople.length === 0){
+            let input = prompt('no result found. try again? \n enter yes to restart or no to end app.')
+            if (input == 'yes'){
+                foundPeople = []
+            }
+            else if (input == 'no'){
+                return foundPeople;
+            }
         }
-    });
-    if (foundPeople.length === 0){
-        alert('no result found.')
-        return foundPeople;
-    }
-    displayPeople(foundPeople);
-    return foundPeople;}
-
-function dob(people)
-    {let dob = prompt('what is their dob')
-    let foundPeople = people.filter(function (person) {
-        if (person.dob === dob) {
-            return true;
+        else{
+            return foundPeople;
         }
-    });
-    if (foundPeople.length === 0){
-        alert('no result found.')
-        return foundPeople;
     }
-    displayPeople(foundPeople);
-    return foundPeople;}
+    // return foundPeople;
+}
 
-function height(people)
-    {let height = prompt('what is their height')
-    let foundPeople = people.filter(function (person) {
-        if (person.height == height) {
-            return true;
+// filters array by date of birth
+function dob(people){
+    let foundPeople = [];
+    while (foundPeople.length === 0){
+        let dob = prompt('what is their dob')
+        let foundPeople = people.filter(function (person) {
+            if (person.dob === dob) {
+                return true;
+            }
+        });
+        if (foundPeople.length === 0){
+            let input = prompt('no result found. try again? \n enter yes to restart or no to end app.')
+            if (input == 'yes'){
+                foundPeople = []
+            }
+            else if (input == 'no'){
+                return foundPeople;
+            }
         }
-    });
-    if (foundPeople.length === 0){
-        alert('no result found.')
-        return foundPeople;
+        else{
+            return foundPeople;
+        }
     }
-    displayPeople(foundPeople);
-    return foundPeople;}
+}
 
+// filters array by height
+function height(people){
+    let foundPeople = [];
+    while (foundPeople.length === 0){
+        let height = prompt('what is their height')
+        let foundPeople = people.filter(function (person) {
+            if (person.height == height) {
+                return true;
+            }
+        });
+        if (foundPeople.length === 0){
+            let input = prompt('no result found. try again? \n enter yes to restart or no to end app.')
+            if (input == 'yes'){
+                foundPeople = []
+            }
+            else if (input == 'no'){
+                return foundPeople;
+            }
+        }
+        else{
+            return foundPeople;
+        }
+    }
+}
+
+// filters array by weight
 function weight(people){
-    let weight = prompt('what is their weight')
-    let foundPeople = people.filter(function (person) {
-        if (person.weight == weight) {
-            return true;
+    let foundPeople = [];
+    while (foundPeople.length === 0){
+           let weight = prompt('what is their weight')
+        let foundPeople = people.filter(function (person) {
+            if (person.weight == weight) {
+                return true;
+            }
+        });
+        if (foundPeople.length === 0){
+            let input = prompt('no result found. try again? \n enter yes to restart or no to end app.')
+            if (input == 'yes'){
+                foundPeople = []
+            }
+            else if (input == 'no'){
+                break;
+            }
         }
-    });
-    if (foundPeople.length === 0){
-        alert('no result found.')
-        return foundPeople;
+        else{
+            return foundPeople;
+        }
     }
-    displayPeople(foundPeople);
-    return foundPeople;}
+}
 
+// filters array by eye color
 function eyeColor(people){
-    let eyeColor = prompt('what is their eye color')
-    let foundPeople = people.filter(function (person) {
-        if (person.eyeColor === eyeColor) {
-            return true;
+    let foundPeople = [];
+    while (foundPeople.length === 0){
+           let eyeColor = prompt('what is their eye color')
+        let foundPeople = people.filter(function (person) {
+            if (person.eyeColor === eyeColor) {
+                return true;
+            }
+        });
+        if (foundPeople.length === 0){
+            let input = prompt('no result found. try again? \n enter yes to restart or no to end app.')
+            if (input == 'yes'){
+                foundPeople = []
+            }
+            else if (input == 'no'){
+                return foundPeople;
+            }
         }
-    });
-    if (foundPeople.length === 0){
-        alert('no result found.')
-        return foundPeople;
+        else{
+            return foundPeople;
+        }
     }
-    displayPeople(foundPeople);
-    return foundPeople;}
+}
 
+// filters array by ocutation
 function occupation(people){
-    let occupation = prompt('what is their occupation')
-    let foundPeople = people.filter(function (person) {
-        if (person.occupation === occupation) {
-            return true;
+    let foundPeople = [];
+    while (foundPeople.length === 0){
+           let occupation = prompt('what is their occupation')
+        let foundPeople = people.filter(function (person) {
+            if (person.occupation === occupation) {
+                return true;
+            }
+        });
+        if (foundPeople.length === 0){
+            let input = prompt('no result found. try again? \n enter yes to restart or no to end app.')
+            if (input == 'yes'){
+                foundPeople = []
+            }
+            else if (input == 'no'){
+                return foundPeople;
+            }
         }
-    });
-    if (foundPeople.length === 0){
-        alert('no result found.')
-        return foundPeople;
+        else{
+            return foundPeople;
+        }
     }
-    displayPeople(foundPeople);
-    return foundPeople;}
-
-
-
-
-
-
+}
